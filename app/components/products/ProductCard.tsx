@@ -4,14 +4,17 @@ import { formatPrice } from '@/utils/formatPrice'
 import { truncateText } from '@/utils/truncateText'
 import { Rating } from '@mui/material'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 function ProductCard({data} : any) {
 
+    const router = useRouter()
+
     const productRating = data.reviews.reduce((acc : number, item : any) => item.rating + acc, 0) /data.reviews.length
 
     return (
-        <div className='col-span-1 cursor-pointer border-[1px] border-slate-200 bg-slate-50 rounded-md p-2 transition hover:scale-105 text-center'>
+        <div onClick={() => router.push(`/product/${data.id}`)} className='col-span-1 cursor-pointer border-[1px] border-slate-200 bg-slate-50 rounded-md p-2 transition hover:scale-105 text-center'>
             <div className='aspect-square overflow-hidden relative w-full'>
                 <Image fill className='w-full h-full object-contain' src={data.images[0].image} alt={data.name}/>
             </div>
